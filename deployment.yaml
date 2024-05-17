@@ -1,0 +1,32 @@
+# Akash Network Service Description Language (SDL) File
+# Service Metadata
+version: '2.0'
+services:
+    my-service:
+        image: jackisbusy/akash-hackathon-app
+        expose:
+          - port: 80
+            as: 80
+            to:
+              - global: true
+profiles:
+    compute:
+        my-service:
+            resources:
+                cpu:
+                    units: 0.5
+                memory:
+                    size: 512Mi
+                storage:
+                    - size: 512Mi
+    placement:
+        akash:
+            pricing:
+                my-service:
+                    denom: uakt
+                    amount: 100000
+deployment:
+    my-service:
+        akash:
+            profile: my-service
+            count: 1
